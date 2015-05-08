@@ -1,19 +1,20 @@
-#!/bin/bash
-
-# watermark.sh
-# 24.10.2014
-
+#! /bin/sh
+# File          :  watermark.sh
+# Created       :  Fri 24 October 2014 18:12:55
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+#..:: Description ::..
 #     Take logo(s) from command line and put evry of them to all pictures found
-# in current dirrectory. 
-#    Think about how to take paramaters up-side, not for only one logo (2-n)
-#     Script hase to take in count the size of the logo (LxH), calculate the
-# space between the logos, if they are many. Read more about ImgeMagick, I think
-# can be extracted from them (LxH). I need only logo width and logo gap. Add
-# resolution changes from command line arg.
+#     in current dirrectory.  Think about how to take paramaters up-side, not
+#     for only one logo (2-n) Script hase to take in count the size of the logo
+#     (LxH), calculate the space between the logos, if they are many. Read more
+#     about ImgeMagick, I think can be extracted from them (LxH). I need only
+#     logo width and logo gap. Add resolution changes from command line arg.
 
-#     Used in this script
-# Packet from ImageMagic: >composite< to put one image on another
-#             : >identify< to extract information about img parm
+#     Used in this script Packet from ImageMagic: >composite< to put one image
+#     on another : >identify< to extract information about img parm
 
 
 LOGO=$1
@@ -58,4 +59,3 @@ for imgs in *.jpg; do
     composite -gravity SouthEast -geometry +${GAP}+${GAP} ${LOGO_ME} tmp_logo/$imgs \
         ${LOCATION}/$imgs
 done
-rm -rf tmp_logo
