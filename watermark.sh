@@ -15,7 +15,10 @@
 
 #     Used in this script Packet from ImageMagic: >composite< to put one image
 #     on another : >identify< to extract information about img parm
+# <END OF Description >------------------------------------------------------------
 
+# Referencing undefined variables
+# Ignoring failing commands
 
 LOGO=$1
 LOGO_ME=$2
@@ -30,7 +33,7 @@ else
     echo "install ImageMagick packages."
 fi
 
-if [ $# -ne 2 ]; then
+if [[ $# -ne 2 ]]; then
     echo usage: $0 logo.png logo_me.png 
     exit 1
 fi
@@ -42,7 +45,7 @@ echo This scrip will apply for all *.jpg files in courrent directory.
 echo Are you sure \[y\\n\]?
 read $ANSWER
 
-if [ $ANSWER = n ]; then
+if [[ $ANSWER = n ]]; then
     exit 0
 fi
 

@@ -1,4 +1,4 @@
-#! /bin/sh
+:#! /bin/sh
 # File:           sres.sh
 #
 # Created:        Wed 18 Mar 2015 18:50:58

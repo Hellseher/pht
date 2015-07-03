@@ -1,10 +1,6 @@
-## pht
-__photo tools__
+# tiny-tools
+_script tools for life_  
 
-
-
-
-Watermark insertion for photojournalist 
-
-Take logo(s) from command line and put evry of them to all pictures found
-  7 # in current dirrectory. 
+__watermark__ : *insertion for photojournalist* 
+              : Take logo(s) from command line and 
+              : put evry of them to all pictures  
