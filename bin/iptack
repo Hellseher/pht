@@ -1,0 +1,21 @@
+#! /bin/sh
+# File          :  iptack
+# Created       :  Sat 22 Aug 2015 22:51:54
+# Last Modified :  Mon 24 Aug 2015 07:59:22
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+#..:: Description ::..
+# Shows ip of ssh attackers, country and how many attempts were made
+#
+# 
+# list of attackers IPs
+IP_SORTED=$(awk -F" " '/sshd.*Invalid/ {print $10}' /var/log/secure | sort -u)
+IP_UNSORTED=$(awk -F" " '/sshd.*Invalid/ {print $10}' /var/log/secure)
+
+
+for ip in $IP_SORTED; do
+    ip_country=$(geoiplookup $ip | grep -Po '(?<=:\s)\w+')
+    printf "$ip\t$ip_country\n"
+done
