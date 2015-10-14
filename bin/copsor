@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  copsor
 # Created       :  Wed 07 Oct 2015 23:05:52
-# Last Modified :  Wed 14 Oct 2015 18:38:50
+# Last Modified :  Wed 14 Oct 2015 19:34:58
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits:
@@ -23,7 +23,7 @@ IMG_PWD="/Data/picvid/phts/tmp/"
 
 UDIR=$(cat /etc/passwd | grep $USER | cut -d: -f6)
 DIST_DIR=${UDIR}${IMG_PWD}$(date +"%a_%B_%d_%Y")
-SOURCE_DIR="/run/user/1000/gvfs/*"
+SOURCE_DIR="/run/user/$UID/gvfs/"
 # --[ END of constants ]---
 
 # make DIST_DIR if not exists
@@ -31,14 +31,11 @@ if [[ ! -d ${DIST_DIR} ]]; then
     mkdir ${DIST_DIR}
 fi
 
-echo ${DIST_DIR}
-# test the script
-# ls ${SOURCE_DIR} >> /home/sharlaran/test2
-# move all img from camera to DIST_DIR
-# cp ${SOURCE_DIR} ${DIST_DIR}
-# echo ${SOURCE_DIR} ${DIST_DIR}
-
-# sorting files in SOURCE_DIR
-# exiftool -r '-Directory<DateTimeOriginal' -d %d_%B_%Y ${DIST_DIR}.
-# && find ./ -type d -empty \
-#             -exec rm -rf {}\;
+# moving, sorting and cleaning empty dirs
+if [[ -d ${SOURCE_DIR} ]]; then
+    find ${SOURCE_DIR} -type f -exec mv {} ${DIST_DIR} \;
+    find ${SOURCE_DIR} -type d -empty -exec rmdir {} \;
+    # sorting files in DIST_DIR
+    exiftool -r '-Directory<DateTimeOriginal' \
+        -d ${DIST_DIR}/%d_%B_%Y  -r ${DIST_DIR}
+fi
