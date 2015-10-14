@@ -1,14 +1,16 @@
 #! /bin/sh
 # File          :  picsort
 # Created       :  Mon 24 Aug 2015 08:34:27
-# Last Modified :  Mon 24 Aug 2015 08:44:12
+# Last Modified :  Wed 07 Oct 2015 23:23:21
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits:
 #
 #..:: Description ::..
 # Recursively sort pictures in curren directory by created date
-#
+# Requred   :
+#           : exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
+
 read -p "Sort images? (Yy|Nn): " answer
 if [[ $answer = y  ||  $answer = Y ]]; then
     exiftool -r '-Directory<DateTimeOriginal' \

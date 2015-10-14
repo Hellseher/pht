@@ -1,0 +1,44 @@
+#! /bin/sh
+# File          :  copsor
+# Created       :  Wed 07 Oct 2015 23:05:52
+# Last Modified :  Wed 14 Oct 2015 18:38:50
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+#..:: Description ::..
+# Copy and sort imgs from plugged camera.
+# Using udev rules to determine weather device is added.
+# Requred   :
+#           : exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
+# 
+
+# This rule has to be added to /etc/udev/rules.d/<your_file_name>
+#
+# ACTION=="add", ATTRS{idVendor}="NIKON", RUN+="/home/<user_name>/.bin/copsor
+
+
+# --[ BEGIN of constants ]---
+IMG_PWD="/Data/picvid/phts/tmp/"
+
+UDIR=$(cat /etc/passwd | grep $USER | cut -d: -f6)
+DIST_DIR=${UDIR}${IMG_PWD}$(date +"%a_%B_%d_%Y")
+SOURCE_DIR="/run/user/1000/gvfs/*"
+# --[ END of constants ]---
+
+# make DIST_DIR if not exists
+if [[ ! -d ${DIST_DIR} ]]; then
+    mkdir ${DIST_DIR}
+fi
+
+echo ${DIST_DIR}
+# test the script
+# ls ${SOURCE_DIR} >> /home/sharlaran/test2
+# move all img from camera to DIST_DIR
+# cp ${SOURCE_DIR} ${DIST_DIR}
+# echo ${SOURCE_DIR} ${DIST_DIR}
+
+# sorting files in SOURCE_DIR
+# exiftool -r '-Directory<DateTimeOriginal' -d %d_%B_%Y ${DIST_DIR}.
+# && find ./ -type d -empty \
+#             -exec rm -rf {}\;
