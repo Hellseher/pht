@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  copsor
 # Created       :  Wed 07 Oct 2015 23:05:52
-# Last Modified :  Sat 24 Oct 2015 13:45:19
+# Last Modified :  Sat 24 Oct 2015 16:11:27
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits:
@@ -16,9 +16,8 @@
 # This rule has to be added to /etc/udev/rules.d/<your_file_name>
 # ACTION=="add", ATTRS{idVendor}="NIKON", RUN+="/home/<user_name>/.bin/copsor
 
-# Load lib/tiny-tools-vars.sh
-ABS_PATH=$(realpath $0 |  grep -Po "(?:(\S)*)(tiny-toolbox)")
-source ${ABS_PATH}/lib/vars-lib
+# shared variables list
+. ~/.local/bin/var-lib
 
 echo Making: ${DST_DIR}
 # make DST_DIR if not exists

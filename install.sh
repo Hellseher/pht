@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  install.sh
 # Created       :  Fri 16 Oct 2015 14:50:01
-# Last Modified :  Sat 24 Oct 2015 13:27:17
+# Last Modified :  Sat 24 Oct 2015 16:11:19
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits       : http://www.cyberciti.biz/faq/bash-loop-over-file/

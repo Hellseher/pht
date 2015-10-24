@@ -1,0 +1,22 @@
+#! /bin/sh
+# File          :  test
+# Created       :  Sat 24 Oct 2015 15:55:16
+# Last Modified :  Sat 24 Oct 2015 16:02:01
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+#..:: Description ::..
+#
+#
+. ~/.local/bin/var-lib
+
+echo ${IMG_PWD}
+echo ${DST_DIR}
+echo ${SRC_DIR}
+echo ${LS_D}
+echo ${LS_F}
+echo ${LS_L}
+echo ${LS_HD}
+echo ${LS_HF}
+echo ${LS_HL}
