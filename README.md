@@ -2,7 +2,7 @@
 File          : README.md
 
 Created       : Fri 03 Jul 2015 07:47:36
-Last Modified : Sat 24 Oct 2015 16:22:17
+Last Modified : Sat 24 Oct 2015 16:25:33
 -->
 
 
@@ -14,8 +14,7 @@ _script tools for life_
 See full description in each files.  
 
 ## Dependencies ##
-*   [ImageMagick](http://www.imagemagick.org/script/index.php "a software suite
-    to create, edit, compose, or convert bitmap images.)
+*   [ImageMagick](http://www.imagemagick.org/script/index.php "a software suite to create, edit, compose, or convert bitmap images")
 *   [geoiplookup](https://www.maxmind.com)
 *   [ExifTool by Phil Harvey](http://www.sno.phy.queensu.ca/~phil/exiftool/)
 
