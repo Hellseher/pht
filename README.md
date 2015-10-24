@@ -2,7 +2,7 @@
 File          : README.md
 
 Created       : Fri 03 Jul 2015 07:47:36
-Last Modified : Mon 24 Aug 2015 09:01:52
+Last Modified : Sat 24 Oct 2015 16:22:17
 -->
 
 
@@ -14,8 +14,10 @@ _script tools for life_
 See full description in each files.  
 
 ## Dependencies ##
-*   [imagemagic](http://www.imagemagick.org/script/index.php)
+*   [ImageMagick](http://www.imagemagick.org/script/index.php "a software suite
+    to create, edit, compose, or convert bitmap images.)
 *   [geoiplookup](https://www.maxmind.com)
+*   [ExifTool by Phil Harvey](http://www.sno.phy.queensu.ca/~phil/exiftool/)
 
 ## Index ##
 *   __addzero__   : add zeros to file names
