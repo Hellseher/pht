@@ -1,13 +1,12 @@
 #! /bin/sh
 # File          :  extract
 # Created       :  Mon 24 Aug 2015 19:59:53
-# Last Modified :  Mon 24 Aug 2015 20:00:29
+# Last Modified :  Fri 16 Oct 2015 10:46:10
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits:
 #
-#..:: Description ::..
-# Ease way to extract archives
+# extract - Ease way to extract archives
 
 if [ -f $1 ]; then
     case $1 in

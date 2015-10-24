@@ -1,0 +1,106 @@
+#! /bin/sh
+# File          :  tiny-tools-vars
+# Created       :  Fri 16 Oct 2015 10:25:23
+# Last Modified :  Fri 23 Oct 2015 23:19:14
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits       :  https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+#
+# tiny-tools-var - set of additional variable, very handy.
+# 
+# --[ IMGs ]--- {{{
+IMG_PWD="/Data/picvid/phts/tmp/"
+DST_DIR=$HOME${IMG_PWD}$(date +"%a_%B_%d_%Y")
+SRC_DIR="/run/user/$UID/gvfs/"
+# <END OF  IMGs> }}}
+
+# --[ DIR, FILE, LINK ]-- {{{
+# ls only dirs
+LS_D=$(ls -F | grep '[/]' | cut -d/ -f1)
+# ls only files
+LS_F=$(ls -p | grep -v /)
+# ls only links
+LS_L=$(ls -F | grep '[@]' | cut -d@ -f1)
+# ls only hidden dirs
+LS_HD=$(ls -d .*/ | cut -d/ -f1)
+# ls only hidden files
+LS_HF=$(ls -a | grep "^\.")
+# ls only hidden links
+LS_HL=$(ls -Fa | grep "\." | grep "@" | cut -d@ -f1)
+# <END OF  DIR, FILE, LINK> }}}
+
+# --[ COLOURS ]-- {{{
+# No Color
+NC='\033[0m'
+
+# Regular Colors
+Black='\e[0;30m'
+Red='\e[0;31m'
+Green='\e[0;32m'
+Yellow='\e[0;33m'
+Blue='\e[0;34m'
+Purple='\e[0;35m'
+Cyan='\e[0;36m'
+White='\e[0;37m'
+
+# Bold
+Bold='\e[1m'
+B_black='\e[1;30m'
+B_red='\e[1;31m'
+B_green='\e[1;32m'
+B_yellow='\e[1;33m'
+B_blue='\e[1;34m'
+B_purple='\e[1;35m'
+B_cyan='\e[1;36m'
+B_white='\e[1;37m'
+
+# Underline
+U_black='\e[4;30m'
+U_red='\e[4;31m'
+U_green='\e[4;32m'
+U_yellow='\e[4;33m'
+U_blue='\e[4;34m'
+U_purple='\e[4;35m'
+U_cyan='\e[4;36m'
+U_white='\e[4;37m'
+
+# Background
+BG_black='\e[40m'
+BG_red='\e[41m'
+BG_green='\e[42m'
+BG_yellow='\e[43m'
+BG_blue='\e[44m'
+BG_purple='\e[45m'
+BG_cyan='\e[46m'
+BG_white='\e[47m'
+
+# high Intensity
+HI_black='\e[0;90m'
+HI_red='\e[0;91m'
+HI_green='\e[0;92m'
+HI_yellow='\e[0;93m'
+HI_blue='\e[0;94m'
+HI_purple='\e[0;95m'
+HI_cyan='\e[0;96m'
+HI_white='\e[0;97m'
+
+#  High Intensity Bold
+HI_B_black='\e[1;90m'
+HI_B_red='\e[1;91m'
+HI_B_green='\e[1;92m'
+HI_B_yellow='\e[1;93m'
+HI_B_blue='\e[1;94m'
+HI_B_purple='\e[1;95m'
+HI_B_cyan='\e[1;96m'
+HI_B_white='\e[1;97m'
+
+# High Intensity backgrounds
+HI_BG_black='\e[0;100m'
+HI_BG_red='\e[0;101m'
+HI_BG_green='\e[0;102m'
+HI_BG_yellow='\e[0;103m'
+HI_BG_blue='\e[0;104m'
+HI_BG_purple='\e[0;105m'
+HI_BG_cyan='\e[0;106m'
+HI_BG_white='\e[0;107m'
+# <eND OF  COLOURS> }}}

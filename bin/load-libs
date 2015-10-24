@@ -1,0 +1,12 @@
+#! /bin/sh
+# File          :  load-libs
+# Created       :  Fri 16 Oct 2015 14:46:01
+# Last Modified :  Sat 24 Oct 2015 13:38:05
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+# load-libs - load all lib.file
+ABS_PATH=$(realpath $0 |  grep -Po "(?:(\S)*)(tiny-toolbox)")
+# load all *-lib.sh 
+source ${ABS_PATH}/lib/vars-lib
