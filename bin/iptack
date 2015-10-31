@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  iptack
 # Created       :  Sat 22 Aug 2015 22:51:54
-# Last Modified :  Sat 31 Oct 2015 19:58:01
+# Last Modified :  Sat 31 Oct 2015 20:05:09
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 #
 # iptack - show ips atacking you
@@ -16,6 +16,6 @@ IP_SORTED=$(awk -F" " '/sshd.*Invalid/ {print $10}' /var/log/secure | sort -u)
 IP_UNSORTED=$(awk -F" " '/sshd.*Invalid/ {print $10}' /var/log/secure)
 
 for ip in $IP_SORTED; do
-    ip_country=$(geoiplookup $ip | grep -Po '(?<=\s)[A-Z]{2}(?=[\,|\s])')
+    ip_country=$(geoiplookup $ip | grep -Po -m1 '(?<=\s)[A-Z]{2}(?=[\,|\s])')
     printf "$ip $ip_country"
 done
