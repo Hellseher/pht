@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  iptack
 # Created       :  Sat 22 Aug 2015 22:51:54
-# Last Modified :  Sat 31 Oct 2015 19:42:30
+# Last Modified :  Sat 31 Oct 2015 19:51:00
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits:
@@ -10,7 +10,7 @@
 # Shows ip of ssh attackers, country and how many attempts were made
 #
 # 
-if [[ -e  ~/.local/bin/var-lib && -e ~/.local/bin/fun-lib ]]; then
+if [[ -f  ~/.local/bin/var-lib && -f ~/.local/bin/fun-lib ]]; then
     . ~/.local/bin/var-lib
     . ~/.local/bin/fun-lib
 else
