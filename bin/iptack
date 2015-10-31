@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  iptack
 # Created       :  Sat 22 Aug 2015 22:51:54
-# Last Modified :  Sat 31 Oct 2015 21:02:25
+# Last Modified :  Sat 31 Oct 2015 21:04:27
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 #
 # iptack - show ips atacking you
@@ -18,5 +18,5 @@ IP_SORTED=$(echo ${IP_ALL}| sort -u)
 
 for ip in ${IP_SORTED}; do
     #country_code=$(geoiplookup $ip | grep -Po -m1 '(?<=\s)[A-Z]{2}(?=[\W])')
-    printf "$ip $(grep -c ${IP_ALL})"
+    printf "$ip $(echo ${IP_ALL} | grep -c $ip)"
 done
