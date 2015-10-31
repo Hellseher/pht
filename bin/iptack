@@ -1,10 +1,10 @@
 #! /bin/sh
 # File          :  iptack
 # Created       :  Sat 22 Aug 2015 22:51:54
-# Last Modified :  Sat 31 Oct 2015 21:33:50
+# Last Modified :  Sat 31 Oct 2015 21:37:27
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 #
-# iptack - show ips atacking you
+# iptack - show ips attacking you
 #
 . ~/.local/bin/var-lib
 . ~/.local/bin/fun-lib
@@ -17,8 +17,14 @@ IP_ALL=$(lastb | awk -F" " '{print $3}')
 IP_SORTED=$(echo ${IP_ALL} | tr ' ' '\n' | sort -u)
 
 
+echo Wait a minute...
+
 for ip in ${IP_SORTED}; do
   country_code=$(geoiplookup $ip | grep -Po -m1 '(?<=\s)[A-Z]{2}(?=[\W])')
   number=$(echo ${IP_ALL} | tr ' ' '\n' | grep -c $ip)
   printf "$number $ip $country_code\n" | column -t
 done
+
+echo -------------------------------
+echo "All together:"
+echo ${IP_SORTED} | wc -l
