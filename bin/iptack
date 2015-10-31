@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  iptack
 # Created       :  Sat 22 Aug 2015 22:51:54
-# Last Modified :  Sat 31 Oct 2015 20:11:13
+# Last Modified :  Sat 31 Oct 2015 20:13:36
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 #
 # iptack - show ips atacking you
@@ -12,11 +12,7 @@
 if_sudo
 
 # list of attackers IPs
-IP_SORTED=$(lastb \
-    | awk -F" " '{pirnt $3}' \
-    | sort  \
-    | uniq -c \
-    | sort )
+IP_SORTED=$(lastb | awk -F" " '{pirnt $3}' | sort | uniq -c | sort )
 echo ${IP_SORTED}
 # for ip in $IP_SORTED; do
 #     ip_country=$(geoiplookup $ip | grep -Po -m1 '(?<=\s)[A-Z]{2}(?=[\,|\s])')
