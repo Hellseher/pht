@@ -1,22 +1,13 @@
 #! /bin/sh
 # File          :  iptack
 # Created       :  Sat 22 Aug 2015 22:51:54
-# Last Modified :  Sat 31 Oct 2015 19:51:00
+# Last Modified :  Sat 31 Oct 2015 19:58:01
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
-# License       :  Same as Bash (GPL)
-# Credits:
 #
-#..:: Description ::..
-# Shows ip of ssh attackers, country and how many attempts were made
+# iptack - show ips atacking you
 #
-# 
-if [[ -f  ~/.local/bin/var-lib && -f ~/.local/bin/fun-lib ]]; then
-    . ~/.local/bin/var-lib
-    . ~/.local/bin/fun-lib
-else
-    . ./var-lib
-    . ./fun-lib
-fi
+. ~/.local/bin/var-lib
+. ~/.local/bin/fun-lib
 
 if_sudo
 
