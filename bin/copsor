@@ -1,11 +1,11 @@
 #! /bin/sh
 # File          :  copsor
 # Created       :  Wed 07 Oct 2015 23:05:52
-# Last Modified :  Sat 24 Oct 2015 16:11:27
+# Last Modified :  Fri 06 Nov 2015 23:11:19
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
-# License       :  Same as Bash (GPL)
-# Credits:
 #
+# copsor - copy img from camera to given dir
+
 #..:: Description ::..
 # Copy and sort imgs from plugged camera.
 # Using udev rules to determine weather device is added.

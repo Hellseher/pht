@@ -1,0 +1,7 @@
+#! /bin/sh
+# File          :  fakeswap
+# Created       :  Sat 31 Oct 2015 21:04:10
+# Last Modified :  Sat 31 Oct 2015 23:00:00
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+#
+# fakeswap - create a "fake" swap on VPS

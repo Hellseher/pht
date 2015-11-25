@@ -1,9 +1,11 @@
-#!/bin/sh
-# script from http://stackoverflow.com/questions/12133583
-set -e
-
-# Get a list of authors ordered by number of commits
-# and remove the commit count column
+#! /bin/sh
+# File          :  gitauthor
+# Created       :  Sat 31 Oct 2015 23:00:18
+# Last Modified :  Fri 06 Nov 2015 23:11:14
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+#
+# gitauthor - show all git author of repo
+#
 
 AUTHORS=$(git --no-pager shortlog -nse | cut -f 2- | sort -f)
 if [ -z "$AUTHORS" ] ; then
@@ -12,4 +14,4 @@ if [ -z "$AUTHORS" ] ; then
 fi
 
 # Display the authors list and write it to the file
-echo "$AUTHORS" | tee "$(git rev-parse --show-toplevel)/AUTHORS"
+# script from http://stackoverflow.com/questions/12133583
