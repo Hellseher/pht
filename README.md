@@ -2,7 +2,7 @@
 File          : README.md
 
 Created       : Fri 03 Jul 2015 07:47:36
-Last Modified : Sun 29 Nov 2015 22:47:13
+Last Modified : Sun 29 Nov 2015 22:52:36
 -->
  
 
@@ -21,7 +21,7 @@ Simply ./install.sh in your fav shell.
 *   [geoiplookup](https://www.maxmind.com)
 *   [ExifTool by Phil Harvey](http://www.sno.phy.queensu.ca/~phil/exiftool/)
 *   [smartmontools](https://www.smartmontools.org/)
-*   [hdparm]
+*   [hdparm](http://sourceforge.net/projects/hdparm/)
 
 ## Index ##
 
@@ -38,5 +38,8 @@ Simply ./install.sh in your fav shell.
 *   make a style gude
 *   rename all lib variables and func to
     
-    _v_<var_name>
+    
+    __<var_name>
     _f_<func_name>
+
+
