@@ -1,17 +1,23 @@
 #! /bin/sh
 # File          :  picsort
 # Created       :  Mon 24 Aug 2015 08:34:27
-# Last Modified :  Thu 15 Oct 2015 10:53:43
-# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
-# License       :  Same as Bash (GPL)
-# Credits:
-# picsort       -  Recursively sort pictures in current directory.
-#..:: Description ::..
-# Requred   :
-#           : exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
+# Last Modified :  Sat Jun 04 2016 22:00:25 sharlatan
+# Author        :  Sharlatan <sharlatanus@gmail.com>
+# Maintainer    :  sharlatan,
+# License       :  GPL
+
+function hlp() {
+    cat << EOF
+Recursively sort pictures in current directory.
+
+-h, --help  Show this help.
+EOF
+}
 
 read -p "Sort images? [Yy|Nn]: " answer
 if [[ $answer = y  ||  $answer = Y ]]; then
     exiftool -r '-Directory<DateTimeOriginal' -d %d_%B_%Y .
     find ./ -type d -empty -delete 2>/dev/null
+else
+    exit 0
 fi

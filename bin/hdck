@@ -1,0 +1,94 @@
+#! /bin/sh
+# File          :  hdck.sh
+# Created       :  Thu 26 Nov 2015 22:11:36
+# Last Modified :  Fri 27 Nov 2015 22:36:54
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+#..:: Description ::..
+# Tests check the electrical and mechanical performance as well as the read
+# performance of the disk.  Check the S.M.A.R.T. health status of HDD Check the
+# speed test Write fs on HDD
+
+if [[ $UID -ne 0 ]]; then echo Run as root; fi
+
+
+# ---[ vars ]--- {{{
+HDD=$1
+HDD_PATH="/dev/"$1
+
+HDD_SN=$(smartctl -i /dev/sdc | grep -oP "(?<=Number:\s{4})(.)+")
+HDD_INFO=$(smartctl -i /dev/sdc | sed -e '1,/START OF INFORMATION SECTION/d')
+TEST_TIME_M=$(smartctl -c /dev/sdc \
+             | sed -e '1,/Short self-test/d' \
+             | head -n 1 \
+             | grep -oP "\d+")
+DURATION=$(expr ${TEST_TIME_M} \* 60)
+LOG_PATH="/home/sharlaran/"
+LOG_NAME=hdck-$(date +%d%m%y-%H%M)-${HDD_SN}.log
+
+separator=----------------------------------------------------
+# ---[ end of vars # ]---------------------------------------------------------}}}
+
+# ---[ functions ]--- {{{
+init_msg (){
+    #
+    # Show initiation massages, and unmount hdd.
+    #
+    echo Test started @ $(date)
+    echo
+    echo For ${HDD_PATH} with s/n: ${HDD_SN}
+    echo Will be performing 3 shorts tests.
+    echo Total duration time for S.M.A.R.T. test ${TEST_TIME_M} minutes.
+    umount ${HDD_PATH} >/dev/nul 2>&1 || /bin/true
+    echo $separator
+}
+#
+#
+smart_test() {
+    #
+    # Perform 3 smartctl short tests.
+    #
+    for count in 1 2 3; do
+        smartctl -t short ${HDD_PATH} >/dev/null
+        sleep ${DURATION}
+    done
+}
+#
+#
+smart_log(){
+    #
+    # Perform speed test, save logs and show short statistics
+    #
+    speed_test=$(hdparm -Tt /dev/sdc | tail -n1 | grep -Po "(?<=\=\s{2})(.)+")
+#
+    echo Buffered disk reads $speed_test | tee ${LOG_PATH}${LOG_NAME}
+#
+    smartctl -l selftest ${HDD_PATH} >>${LOG_PATH}${LOG_NAME}
+    smartctl -l error ${HDD_PATH} >> ${LOG_PATH}${LOG_NAME}
+    resutl=$(cat ${LOG_PATH}${LOG_NAME} | grep -oP "(Complete)(.)+" | tail -n3)
+#
+    echo
+    echo S.M.A.R.T. test for ${HDD} completed
+    echo $separator
+    echo -e "$resutl\n"
+}
+
+part_mkfs() {
+    #
+    # Create partition and ext3 fs.
+    #
+    echo Parted and mkfs perfoming.
+
+    parted -s $HDD_PATH mklabel msdos
+    parted -s $HDD_PATH mkpart primary 0% 100%
+    mkfs.ext3 -L CHECKEDEXT3 -U 68376d5d-5e2e-4564-9289-bc54032ca0a6 ${1}1
+}
+# ---[ end of functions  ]---------------------------------------------------}}}
+#
+# ---[ MAIN PART ]---
+#
+init_msg
+smart_test
+smart_log

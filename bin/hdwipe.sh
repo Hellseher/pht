@@ -1,7 +1,7 @@
 #! /bin/sh
 # File          :  wipe_disk.sh
 # Created       :  Tue 24 Nov 2015 23:52:42
-# Last Modified :  Wed 25 Nov 2015 00:10:42
+# Last Modified :  Thu 26 Nov 2015 21:51:01
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 # License       :  Same as Bash (GPL)
 # Credits:
