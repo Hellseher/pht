@@ -1,0 +1,45 @@
+#! /bin/sh
+# File          :  fun-lib
+# Created       :  Fri 30 Oct 2015 00:25:22
+# Last Modified :  Mon 30 Nov 2015 00:36:20
+# Maintainer    :  sharlatan, <sharlatanus@gmail.com>
+# License       :  Same as Bash (GPL)
+# Credits:
+#
+#..:: Description ::..
+#
+# 
+__abs_path() {
+    #
+    # Returns abs path of link|script_name
+    #
+    if [[ $# -ne 1 ]]; then
+        echo only one arg needed
+        exit 0
+    fi
+    dirname $(readlink -f $1)
+}
+__abs_path $0
+# . ~/.local/bin/var-lib
+
+
+function err() {
+    echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@"
+}
+
+function if_sudo() {
+    if [[ $EUID -ne 0 ]]; then
+        err $0 ${Red}"must be run as root"${NC}
+        exit 1
+    fi
+}
+
+#######################################
+# Cleanup files from the backup dir
+# Globals :
+#         : GLOBALS
+# Arguments:
+#   NIL
+# Returns:
+#   NIL
+#######################################
