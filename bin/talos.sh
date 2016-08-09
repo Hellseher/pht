@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # File          : talos.sh
 # Created       : Sun 31 Jul 2016 00:36:23 sharlatan
-# Last Modified : Fri 05 Aug 2016 22:01:17 sharlatan
+# Last Modified : Tue 09 Aug 2016 23:56:16 sharlatan
 # Author        : sharlatan <sharlatanus@gmail.com>
 # Maintainer(s) : sharlatan
 # Short         : Besic security check on fresh servers
@@ -33,60 +33,71 @@ TALOS_LOG="${ABSPATH}/talos.log"
 #-------------------------------------------------------------------------------
 # LOGGIN FUNCTIONS SET
 
-_log_header(){
-    timeAndDate=$(date)
-    script_name=$(basename "$0")
-    echo "$FUNCNAME: $script_name" >> $TALOS_LOG
-}
-
-_log_footer(){
-    script_name=$(basename "$0")
-    echo "$FUNCNAME: $script_name" >> $TALOS_LOG
-}
-
 _log_entry(){
-    local cfn tstamp msg
+    local cfn ts msg
 
     cfg="${FUNCNAME[1]}"
-    tstamp=$(date +"%Y-%m-%d W%U %T")
-    msg="< $cfg $FUNCNAME"
-    echo -e "[$tstamp] [DEBUG]\t$msg" >> $TALOS_LOG
+    ts="[ $(date +"%Y-%m-%d W%U %T") ]"
+    msg="Begin: $cfg"
+    echo "${ts} [ -><- ] ${msg}" >> "${TALOS_LOG}"
 }
 
 _log_return(){
-    local cfn tstamp msg
+    local cfn ts msg
 
     cfg="${FUNCNAME[1]}"
-    tstamp="$(date +"%Y-%m-%d W%U %T")"
-    msg="> $cfg $FUNCNAME"
-    echo -e "[$tstamp] [DEBUG]\t$msg" >> $TALOS_LOG
+    ts="[ $(date +"%Y-%m-%d W%U %T") ]"
+    msg="End: $cfg"
+    echo "${ts} [ -><- ] ${msg}" >> "${TALOS_LOG}"
 }
+
+_log_blank(){
+    local msg ts
+
+    msg="$1"
+    ts="[ $(date +"%Y-%m-%d W%U %T") ]"
+    echo "${ts} [ -><- ] -----${msg}" >> "${TALOS_LOG}"
+
+    if [ "${QUIET}" -eq 0 ]; then
+        echo "${ts} [ -><- ] -----${msg}"
+    fi
+}
+
 
 _log_info(){
-    local msg tstamp
+    local msg ts
 
     msg="$1"
-    tstamp="$(date +"%Y-%m-%d W%U %T")"
-    echo -e "[$tstamp] [ INFO ]  $msg" >> $TALOS_LOG
-    echo -e "[$tstamp] [\e[32m INFO \e[39m]  $msg"
+    ts="[ $(date +"%Y-%m-%d W%U %T") ]"
+    echo -e "$ts [ INFO ]  ${msg}" >> "${TALOS_LOG}"
 
+    if [ "${QUIET}" -eq 0 ]; then
+        echo -e "$ts [\e[32m INFO \e[39m]  ${msg}"
+    fi
 }
 
-_log_degub(){
-    local msg tstamp
+_log_warn(){
+    local msg ts
 
     msg="$1"
-    tstamp="$(date  +"%Y-%m-%d W%U %T")"
-    echo -e "[$tstamp] [DEBUG]\t$msg" >> $TALOS_LOG
+    ts="[ $(date  +"%Y-%m-%d W%U %T") ]"
+    echo -e "${ts} [WARN] ${msg}" >> "${TALOS_LOG}"
+
+    if [ "${QUIET}" -eq 0 ]; then
+        echo -e "${ts} [\e[33m WARN \e[39m] ${msg}"
+    fi
 }
 
-_log_error(){
-    local msg tstamp
+_log_mist(){
+    local msg ts
 
     msg="$1"
-    tstamp="$(date  +"%Y-%m-%d W%U %T")"
-    echo -e "[$tstamp] [ ERROR ] $msg" >> $TALOS_LOG
-    echo -e "[$tstamp] [\e[31m ERROR \e[39m] $msg"
+    ts="[ $(date  +"%Y-%m-%d W%U %T") ]"
+    echo -e "${ts} [ ERROR ] ${msg}" >> $TALOS_LOG
+
+    if [ "${QUIET}" -eq 0 ]; then
+       echo -e "${ts} [\e[31m MIST \e[39m] ${msg}"
+    fi
 }
 
 #-------------------------------------------------------------------------------
@@ -112,6 +123,7 @@ testRequire() {
     # Return:
     ######################################
     local rd
+    _log_entry
 
     for cmd in "${REQUIRE[@]}"; do
         if ! command -v "$cmd" >/dev/null 2>&1; then
@@ -122,30 +134,33 @@ testRequire() {
     if [[ "${#rd[@]}" -eq 0 ]]; then
         _log_info "All required commands installed - ${REQUIRE[@]}"
        # echo -e "${OK} All requred command installed - ${REQURED[@]}"
-        exit 0
+        _log_return; return 0
     else
-        _log_error "You need to install ${rd[@]} to proceed."
+        _log_warn "You need to install ${rd[@]} to proceed."
         #echo -e "${FAIL} You need to install ${rd[@]} first to proceed."
-        exit 1
+        _log_return; return 1
     fi
 }
 
 main(){
     #
     #
+    QUIET=0
     _log_header
+    _log_blank "----------------------------------------------------------------"
     _log_info "Start ${CMDNAME} v.${VERSION}"
     #echo -e "${BLNK} ${CMDNAME} v.${VERSION}"
     _log_info "Start at $(date)"
    # echo -e "${OK} Start at $(date)"
 
     if _ifnotroot; then
-        _log_error "Run as root!"
+        _log_mist "Run as root!"
         #echo -e "${FAIL} Run as root!"
         exit 1
     fi
 
     testRequire
+    _log_warn "test massage"
 
     _log_footer
 }
