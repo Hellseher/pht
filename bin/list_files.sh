@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # File          : list_files.sh
 # Created       : Tue 06 Sep 2016 22:53:51
-# Last Modified : Tue 06 Sep 2016 23:59:59 sharlatan
-# Short         : List files+symlink in shell
+# Last Modified : Thu 08 Sep 2016 08:06:17 sharlatan
+# Short         : List files+symlink in shell with no external programms
 
 SEARCH_PATH="$1"
 IF_LIST=()
@@ -27,5 +27,5 @@ for del in "${IGNORE[@]}"; do
     IF_LIST=("${IF_LIST[@]/"$del"}")
 done
 
-echo "${IF_LIST[@]}"
+echo "${IF_LIST[1]}"
 # End of list_files.sh

@@ -1,0 +1,186 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# File          : tagibus.py
+# Created       : Sun 30 Oct 2016 01:49:53
+# Last Modified : <2016-11-01 Tue 22:09:12 GMT> sharlatan
+# Author        : sharlatan <sharlatanus@gmail.com>
+# Maintainer(s) :
+# Short         : html simple parser.
+
+
+"""
+--------------------------------------------------------------------------------
+Commentary:
+
+All command line utils should be simple to use!
+
+ʌɪtagibus [tɑgˈibʌs] is a simple tool to research/investigate HTML pages.  By
+default it outputs a list of all tags with their occurrence in the file. With
+other option you can get a list of tag attributes and attributes values.
+
+--------------------------------------------------------------------------------
+Change-log:
+
+0.0.1 :: <30-10-2016 Sun 01:49 GMT>
+      + Init the project
+0.0.2 :: <31-10-2016 Mon>
+      + Implemented general functionality.
+      + Added main functions.
+      + Added help and options.
+0.1.0 :: <01-11-2016 21:45 GMT>
+      + Tested stable release, ready for rough usage in work-flow.
+
+"""
+#===============================================================================
+__file__ = "tagibus-v"
+__version__ = "0.0.2"
+
+# TODO(sharlatan): think about https://github.com/kennethreitz/requests
+import sys
+import urllib
+import operator
+
+#-------------------------------------------------------------------------------
+# Require:
+
+try:
+    from docopt import docopt
+except ImportError:
+    exit("This script requires that 'docopt' is installed:\n\n\
+    sudo pip install docopt\n\n\
+    https://github.com/docopt")
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    exit("This script requires that 'BeautifulSoup' is installed:\n\n\
+    sudo pip install BeautifulSoup\n\n\
+    https://www.crummy.com/software/BeautifulSoup/")
+
+#-------------------------------------------------------------------------------
+# Duty-functios:
+
+def _open_url_file(url):
+    ''' Return open url-or-path file. '''
+    # TODO(Sharlatan): combine with BeutifulSoup(open_url, "html.paser")
+    url_file = urllib.urlopen(url)
+    url_file_out = url_file.read()
+    url_file.close()
+
+    return url_file_out
+
+def _formater(key_value):
+    '''Return a formatted string with columns of TAG:OCCURRENCE.'''
+    # Get the longest TAG and sort the list by the number of occurrences.
+    lngk = max([i[0] for i in key_value], key=len)
+    key_value.sort(key=operator.itemgetter(1))
+    str_out = ""
+    for kev in key_value:
+        frm_str = "{:{width}} {}"
+        str_out += frm_str.format(kev[0], kev[1], width=len(lngk)+1) + "\n"
+
+    return str_out
+
+#-------------------------------------------------------------------------------
+# Meaty-part:
+
+def get_all_tags(open_url):
+    ''' Scrap all embedded tags from HTML file and return a list of lists with
+    [TAG, OCCURRENCE]. '''
+    soup = BeautifulSoup(open_url, "html.parser")
+    all_tags = []
+    counted_tags = []
+
+    for tag in soup.find_all(True):
+        all_tags.append(tag.name)
+
+    unique_tags = set(all_tags)
+
+    for tag in unique_tags:
+        tag_num = []
+        tag_num.append(tag)
+        tag_num.append(all_tags.count(tag))
+        counted_tags.append(tag_num)
+
+    return counted_tags
+
+def get_tags_attr(tag, open_url):
+    '''Scrap HTML tags for TAG and return list of lists [ATTR, OCCURRENCE].'''
+    soup = BeautifulSoup(open_url, "html.parser")
+    all_attrs = []
+    counted_attrs = []
+
+    for attr in soup.find_all(tag):
+        if len(attr.attrs.keys()) > 1:
+            for att in attr.attrs.keys():
+                all_attrs.append(att)
+        elif len(attr.attrs.keys()) == 0:
+            continue
+        else:
+            all_attrs.append(attr.attrs.keys()[0])
+
+    unique_attrs = set(all_attrs)
+
+    for attr in unique_attrs:
+        att_num = []
+        att_num.append(attr)
+        att_num.append(all_attrs.count(attr))
+        counted_attrs.append(att_num)
+
+    return counted_attrs
+
+def get_attr_value(tag, att, open_url):
+    '''Return all values to a given ATTR.'''
+    soup = BeautifulSoup(open_url, "html.parser")
+    all_vals = []
+    counted_vals = []
+
+    for val in  soup.findAll(tag, {att: True}):
+        all_vals.append(val[att][0])
+
+    unique_vals = set(all_vals)
+
+    for val in unique_vals:
+        val_num = []
+        val_num.append(val)
+        val_num.append(all_vals.count(val))
+        counted_vals.append(val_num)
+
+    return counted_vals
+
+
+def main():
+    """Usage: tagibus [options] URL
+
+    Parse given URL link and return (with no option) a list of TAGs and their
+    occurrence in a file.
+
+    Arguments:
+        URL         full path to HTML file or URL link.
+
+    Options:
+        -t <tag>    get all attribute of given tag.
+        -a <att>    get value of attribute.
+
+        -h, --help
+        -V, --version
+    """
+    args = docopt(main.__doc__, version=__file__+__version__)
+
+    url_path = _open_url_file(args["URL"])
+    tag = args["-t"]
+    att = args["-a"]
+
+    # Default output a list of all tags:accurance
+    if len(sys.argv) == 2:
+        print _formater(get_all_tags(url_path))
+
+    if tag and not att:
+        print _formater(get_tags_attr(tag, url_path))
+    elif tag and att:
+        print _formater(get_attr_value(tag, att, url_path))
+
+
+if __name__ == '__main__':
+    main()
+# End of tagibus.py

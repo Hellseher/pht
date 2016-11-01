@@ -1,0 +1,40 @@
+# File          : README.md
+# Created       : Fri 03 Jul 2015 07:47:36
+# Last Modified : <2016-11-01 Tue 22:20:05 GMT> sharlatan
+
+# TODO make a parser of ./bin show name of script and short dicrc
+
+#+TITLE: Tiny Tool Box
+/script tools for life/
+
+** Intro
+Banch of utils...
+
+To add script to your $HOME/.local/bin
+#+BEGIN_EXAMPLE
+./install.sh
+#+END_EXAMPLE
+
+
+** Index
+
+- /bin :: ready to use scripts
+  - addzero    : add zeros to file names
+  - gitauthor  : list all author of git repo
+  - gitup      : updates all repo in current dir
+  - iptack     : show failed login by ssh
+  - list_files : List files+symlink in shell
+  - picsort    : sort pictures recursively by date created
+  - sortres    : sort imgs by resolutions
+  - tagibus    : simple HTML parser
+  - talos      : basic security check up on freshly made servers
+  - watermark  : insertion for photojournalist
+- /lib :: cummon functions and variables library
+- /src :: paterns and snipets
+
+** Require
+- ImageMagick http://www.imagemagick.org/
+- geoiplookup https://www.maxmind.com
+- ExifTool by Phil Harvey http://www.sno.phy.queensu.ca/~phil/exiftool/
+- smartmontools https://www.smartmontools.org/
+- hdparm http://sourceforge.net/projects/hdparm/

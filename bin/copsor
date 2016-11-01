@@ -1,23 +1,29 @@
 #! /bin/sh
 # File          :  copsor
 # Created       :  Wed 07 Oct 2015 23:05:52
-# Last Modified :  Fri 06 Nov 2015 23:11:19
+# Last Modified :  Mon Jun 06 2016 00:35:09 sharlatan
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
 #
 # copsor - copy img from camera to given dir
 
-#..:: Description ::..
 # Copy and sort imgs from plugged camera.
 # Using udev rules to determine weather device is added.
 # Requred   :
 #           : exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
-# 
 
 # This rule has to be added to /etc/udev/rules.d/<your_file_name>
-# ACTION=="add", ATTRS{idVendor}="NIKON", RUN+="/home/<user_name>/.bin/copsor
 
-# shared variables list
-. ~/.local/bin/var-lib
+# TODO (sharaltan) : how to detect any camera/usb stick on any distro?
+# TODO (sharlatan) : how to add rules to udev?
+
+# -------------------------------------------------------------------------------
+# VARS
+#
+__abs_path="$(dirname $(readlink -f $0))"
+IMG_PWD="Data/pic/tmp/"
+DST_DIR=${HOME}/${IMG_PWD}$(date +"%a_%B_%d_%Y")
+SRC_DIR="/run/user/$UID/gvfs/"
+
 
 echo Making: ${DST_DIR}
 # make DST_DIR if not exists
@@ -31,7 +37,7 @@ if [[ -d ${SRC_DIR} ]]; then
     find ${SRC_DIR} -type f -exec mv {} ${DST_DIR} \;
     find ${SRC_DIR} -type d -empty -delete 2>/dev/null
     # sorting files in DST_DIR
-    exiftool -r '-Directory<DateTimeOriginal' \
+    
         -d ${DST_DIR}/%d_%B_%Y  -r ${DST_DIR}
 fi
 
