@@ -2,40 +2,34 @@
 # -*- coding: utf-8 -*-
 # File          : tagibus.py
 # Created       : Sun 30 Oct 2016 01:49:53
-# Last Modified : <2016-11-01 Tue 22:09:12 GMT> sharlatan
+# Last Modified : <2016-11-02 Wed 22:53:20 GMT> sharlatan
 # Author        : sharlatan <sharlatanus@gmail.com>
 # Maintainer(s) :
 # Short         : html simple parser.
 
-
-"""
---------------------------------------------------------------------------------
-Commentary:
-
-All command line utils should be simple to use!
+"""All command line utils should be simple to use!
 
 ʌɪtagibus [tɑgˈibʌs] is a simple tool to research/investigate HTML pages.  By
 default it outputs a list of all tags with their occurrence in the file. With
 other option you can get a list of tag attributes and attributes values.
-
---------------------------------------------------------------------------------
-Change-log:
-
-0.0.1 :: <30-10-2016 Sun 01:49 GMT>
-      + Init the project
-0.0.2 :: <31-10-2016 Mon>
-      + Implemented general functionality.
-      + Added main functions.
-      + Added help and options.
-0.1.0 :: <01-11-2016 21:45 GMT>
-      + Tested stable release, ready for rough usage in work-flow.
-
 """
+
+#--------------------------------------------------------------------------------
+# Change-log:
+
+# 0.0.1 :: <30-10-2016 Sun 01:49 GMT>
+#       + Init the project
+# 0.0.2 :: <31-10-2016 Mon>
+#       + Implemented general functionality.
+#       + Added main functions.
+#       + Added help and options.
+# 0.1.0 :: <01-11-2016 21:45 GMT>
+#       + Tested stable release, ready for rough usage in work-flow.
 #===============================================================================
 __file__ = "tagibus-v"
-__version__ = "0.0.2"
+__version__ = "0.1.0"
 
-# TODO(sharlatan): think about https://github.com/kennethreitz/requests
+#TODO (sharlatan): think about https://github.com/kennethreitz/requests
 import sys
 import urllib
 import operator
@@ -63,11 +57,11 @@ except ImportError:
 def _open_url_file(url):
     ''' Return open url-or-path file. '''
     # TODO(Sharlatan): combine with BeutifulSoup(open_url, "html.paser")
-    url_file = urllib.urlopen(url)
-    url_file_out = url_file.read()
-    url_file.close()
+    urlf = urllib.urlopen(url)
+    urlf_out = urlf.read()
+    urlf.close()
 
-    return url_file_out
+    return urlf_out
 
 def _formater(key_value):
     '''Return a formatted string with columns of TAG:OCCURRENCE.'''
@@ -147,7 +141,6 @@ def get_attr_value(tag, att, open_url):
         counted_vals.append(val_num)
 
     return counted_vals
-
 
 def main():
     """Usage: tagibus [options] URL
